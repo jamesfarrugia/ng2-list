@@ -1,0 +1,28 @@
+{
+  "name": "jf-ng2-list",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "git@git:/git-repo/public/web/ng2/lib/ng2-list.git"
+  },
+  "author": {
+    "name": "James Farrugia",
+    "email": "info@jamesfarrugia.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "git@git:/git-repo/public/web/ng2/lib/ng2-list.git/issues"
+  },
+  "main": "jf-ng2-list.umd.js",
+  "module": "jf-ng2-list.js",
+  "jsnext:main": "jf-ng2-list.js",
+  "typings": "jf-ng2-list.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}

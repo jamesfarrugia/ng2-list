@@ -1,0 +1,93 @@
+.list-state-progress, .list-state-error, .list-state-empty, .list-state-listing
+{
+  background: #fff;
+}
+
+.list-state-listing
+{
+  padding: 0px;
+}
+
+.list-message
+{
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    color: #777777;
+    padding: 16px;
+}
+
+.list
+{
+  padding: 0px;
+  height: calc(100% - 73px);
+  overflow-y: auto;
+  background: #fff;
+
+  .list-header-row
+  {
+    display: flex;
+    flex-direction: row;
+    background: #f2f2f2;
+
+    .list-header-cell
+    {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      border-bottom: 1px solid #cdcdcd;
+      padding: 6px;
+      border-right: 1px solid #9a9a9a;
+      font-size: 13px;
+
+      span
+      {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .list-item
+  {
+    background: #fff;
+    cursor: default;
+    border: 1px solid transparent;
+    outline: 0;
+    font-size: 14px;
+
+    .list-item-container
+    {
+      outline: none;
+      display: flex;
+      flex-direction: row;
+
+      .list-item-cell
+      {
+        padding: 8px 6px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        border: 0;
+        font-size: 13px;
+
+        span
+        {
+          white-space: nowrap;
+        }
+
+        .list-icon
+        {
+          font-size: 18px;
+        }
+      }
+    }
+    .list-item-container:hover
+    {
+      background: #e5f3ff;
+    }
+  }
+
+  .active-list-item
+  {
+    background: #CCE8FF;
+    border: 1px solid #99D1FF;
+  }
+}

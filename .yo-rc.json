@@ -1,0 +1,7 @@
+{
+  "generator-angular2-library": {
+    "promptValues": {
+      "gitRepositoryUrl": "git@git:/git-repo/public/web/ng2/lib/ng2-list.git"
+    }
+  }
+}
