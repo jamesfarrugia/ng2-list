@@ -1,6 +1,6 @@
 {
   "name": "jf-ng2-list",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -22,7 +22,7 @@
     "name": "James Farrugia",
     "email": "info@jamesfarrugia.com"
   },
-  "keywords": [
+  "keywords": [ 
     "angular"
   ],
   "license": "MIT",
@@ -66,7 +66,7 @@
     "systemjs": "^0.20.12",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0",
+    "typescript": "~2.3.4",
     "zone.js": "^0.8.4"
   },
   "engines": {
