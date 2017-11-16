@@ -71,4 +71,9 @@ export class ListComponent implements OnInit
 
     return '';
   }
+
+  public setActiveItem(item:any)
+  {
+    this.activeItem = item;
+  }
 }
