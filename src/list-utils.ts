@@ -4,3 +4,9 @@ export enum State
     Error,
     List
 }
+
+export enum SortMode {
+    asc,
+    desc,
+    none
+}

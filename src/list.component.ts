@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { State } from './list-utils'
+import { State, SortMode } from './list-utils'
 
 @Component({
   selector: 'list',
@@ -18,6 +18,7 @@ export class ListComponent implements OnInit
 
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output('on-sort') sortEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   private activeItem:any = null;
 
@@ -75,5 +76,26 @@ export class ListComponent implements OnInit
   public setActiveItem(item:any)
   {
     this.activeItem = item;
+  }
+
+  onSort(item:any)
+  {
+    for (let cell of this.schema)
+      if (cell.name != item.name)
+        cell.sort = null;
+      else
+        cell.sort = this.getNextSortMode(cell.sort);
+
+    this.sortEmitter.emit(item);
+  }
+
+  private getNextSortMode(current:SortMode)
+  {
+    return current == null?0:current == 2?0:current + 1;
+  }
+
+  sortMode()
+  {
+    return SortMode;
   }
 }
