@@ -15,6 +15,7 @@ export class ListComponent implements OnInit
   @Input('flow') flow :  boolean=false;
   @Input('header-on-empty') headerOnEmpty: boolean = false;
   @Input('max-height') maxHeight: string = "100%";
+  @Input('min-width') minWidth: string = "200px";
 
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
