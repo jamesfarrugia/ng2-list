@@ -53,7 +53,7 @@
             </ng-container>
             <span *ngSwitchCase="'mapped'" [title]="cell.map[getItemValue(item, cell.value, cell)]">{{cell.map[getItemValue(item, cell.value, cell)]}}</span>
             <span *ngSwitchCase="'spacer'"></span>
-            <span *ngSwitchCase="'price'">€ {{getNumberValue(item, cell, cell.denomination) | number:'1.2-2'}}</span>
+            <span *ngSwitchCase="'price'">€ {{isNum(item,cell)? (getNumberValue(item, cell, cell.denomination) | number:'1.2-2'): "-"}}</span>
             <span *ngSwitchCase="'date'">{{getItemValue(item, cell.value, cell) | date:'dd-MMM-yyyy HH:mm'}}</span>
           </div>
         </div>

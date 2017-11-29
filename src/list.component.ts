@@ -100,6 +100,11 @@ export class ListComponent implements OnInit
     return SortMode;
   }
 
+  isNum(item, cell)
+  {
+    return typeof this.getItemValue(item, cell.value, cell) === 'number';
+  }
+
   getNumberValue(item, cell, divider)
   {
     let num = this.getItemValue(item, cell.value, cell);
