@@ -99,4 +99,13 @@ export class ListComponent implements OnInit
   {
     return SortMode;
   }
+
+  getNumberValue(item, cell, divider)
+  {
+    let num = this.getItemValue(item, cell.value, cell);
+    if (typeof num !== 'number')
+      return "-";
+    
+    return cell.denomination?num / cell.denomination : num;
+  }
 }
