@@ -41,7 +41,7 @@
             (dblclick)="onItemDblClick($event, item)"
             (click)="onItemClick($event, item)"
             [ngClass]="itemClass(item)">
-        <div class="list-item-container">
+        <div class="list-item-container" [ngStyle]="{background:highlight?highlight(item):'inherit'}">
           <div class="list-item-cell" *ngFor="let cell of schema" [ngStyle]="{flex:cell.size, textAlign:cell.type=='icon'?'center':'left'}" [ngSwitch]="cell.type">
             <ng-container *ngSwitchCase="'icon'">
               <i class="material-icons list-icon" *ngIf="!cell.fixed">{{getItemValue(item, cell.value, cell)}}</i>

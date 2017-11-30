@@ -17,6 +17,7 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   [error]="lines.error"
   flow="true"
   (on-sort)="onSort($event)"
+  [highlight]="rowHighlight"
   >
 </list>`
 })
@@ -58,6 +59,11 @@ class AppComponent implements OnInit
         return lf > rf?-1:1;
       return 0;
     });
+  }
+
+  rowHighlight(item)
+  {
+    return 'red';
   }
 }
 

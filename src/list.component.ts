@@ -10,6 +10,7 @@ export class ListComponent implements OnInit
 {
   @Input('items') items: any[] = [];
   @Input('schema') schema: any = {};
+  @Input('highlight') highlight: Function = null;
   @Input('state') state: State = State.List;
   @Input('error') error: string;
   @Input('flow') flow :  boolean=false;

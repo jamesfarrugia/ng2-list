@@ -87,13 +87,13 @@
     }
     .list-item-container:hover
     {
-      background: #e5f3ff;
+      background: #e5f3ff !important;
     }
   }
 
   .active-list-item
   {
-    background: #CCE8FF;
-    border: 1px solid #99D1FF;
+    background: #CCE8FF !important;
+    border: 1px solid #99D1FF !important;
   }
 }
