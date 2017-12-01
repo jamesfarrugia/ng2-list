@@ -52,7 +52,7 @@
             (dblclick)="onItemDblClick($event, item)"
             (click)="onItemClick($event, item)"
             [ngClass]="itemClass(item)">
-        <div class="list-item-container" [ngStyle]="{background:highlight?highlight(item):'inherit'}">
+        <div class="list-item-container" [ngStyle]="{background:highlight?highlight(item):'inherit'}" [ngClass]="item.__checked?'selected-row':''">
           
           <div class="list-item-cell" style="width:24px" *ngIf="isSelectMode">
             <input type="checkbox" [checked]="item.__checked" (change)="onItemCheck(item)"/>

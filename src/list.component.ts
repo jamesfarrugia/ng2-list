@@ -41,6 +41,9 @@ export class ListComponent implements OnInit
 
   onItemClick(event:any, item:any): void
   {
+    if (this.isSelectMode)
+      this.onItemCheck(item);
+
     if(event.ctrlKey)
       this.activeItem = null;
     else
