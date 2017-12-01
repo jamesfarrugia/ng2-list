@@ -38,11 +38,47 @@
       padding: 6px;
       border-right: 1px solid #9a9a9a;
       font-size: 13px;
-      cursor: pointer;
+      display: flex;
+      flex-direction: row;
 
       span
       {
         white-space: nowrap;
+      }
+
+      .col-filter-btn
+      {
+        opacity: 0.3;
+        cursor: pointer;
+      }
+
+      .filter-box
+      {
+        height: 14px;
+        background: rgba(255,255,255,0.8);
+        border: 1px solid #cdcdcd;
+        outline: 0;
+        padding: 4px;
+        width: 80%;
+      }
+    }
+
+    .list-header-cell:hover
+    {
+      .col-filter-btn
+      {
+        opacity: 1;
+      }
+    }
+
+    .list-header-cell-filter
+    {
+      padding-top: 2px;
+      padding-bottom: 2px;
+
+      .fa-times
+      {
+        padding-top:5px;
       }
     }
   }

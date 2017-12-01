@@ -18,11 +18,17 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   flow="true"
   (on-sort)="onSort($event)"
   [highlight]="rowHighlight"
+  [select-mode]="selectMode"
+  (items-checked)="onItemsChecked($event)"
   >
-</list>`
+</list>
+<hr/>
+<input type="checkbox" [checked]="selectMode" (change)="selectMode = !selectMode"/>
+{{activeItems|json}}`
 })
 class AppComponent implements OnInit
 {
+  selectMode:boolean = true;
   items:any[] = [
     {itemSku:"1", productName:"One", itemDescription:"Desc", quantity:13},
     {itemSku:"PD4", productName:"Another", itemDescription:"Desc", quantity:23},
@@ -33,7 +39,7 @@ class AppComponent implements OnInit
   lines: any = {
     items: [],
     schema: [
-      {type: 'text', value:'itemSku', name:'SKU', size: '10%'},
+      {type: 'text', value:'itemSku', name:'SKU', size: '10%', filterable:true},
       {type: 'text', value:'productName', name:'Name', size: '20%'},
       {type: 'text', value:'itemDescription', name:'Description', size: '70%'},
       {type: 'text', value:'quantity', name:'Quantity', size: '15%'}
@@ -41,6 +47,8 @@ class AppComponent implements OnInit
     state: State.List,
     error: null
   }
+
+  activeItems:any[];
 
   ngOnInit()
   {
@@ -63,7 +71,12 @@ class AppComponent implements OnInit
 
   rowHighlight(item)
   {
-    return 'red';
+    return 'inherit';
+  }
+
+  onItemsChecked(items)
+  {
+    this.activeItems = items;
   }
 }
 

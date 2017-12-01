@@ -24,10 +24,21 @@
 
   <div class="list" *ngIf="((items && items.length > 0) || headerOnEmpty) && state == states().List" [style.min-width]="minWidth">
     <div class="list-header-row no-select">
-      <div class="list-header-cell" *ngFor="let cell of schema" [ngStyle]="{flex:cell.size}" (click)="onSort(cell)">
-        <span *ngIf="cell.type != 'spacer'">{{cell.name}}</span>
-        <i *ngIf="cell.sort == sortMode().asc" class="fa fa-caret-up" aria-hidden="true"></i>
-        <i *ngIf="cell.sort == sortMode().desc" class="fa fa-caret-down" aria-hidden="true"></i>
+        
+      <div class="list-header-cell" style="width:24px" *ngIf="isSelectMode" (click)="onSortBySelected()">
+        <i *ngIf="checkSortMode == sortMode().asc" class="fa fa-caret-up" aria-hidden="true"></i>
+        <i *ngIf="checkSortMode == sortMode().desc" class="fa fa-caret-down" aria-hidden="true"></i>
+      </div>
+
+      <div class="list-header-cell" *ngFor="let cell of schema" [ngStyle]="{flex:cell.size}" [ngClass]="cell.isFiltering?'list-header-cell-filter':''">
+        <div style="flex:1;cursor: pointer;" (click)="onSort(cell)">
+          <span *ngIf="cell.type != 'spacer' && !cell.isFiltering">{{cell.name}}</span>
+          <input type="text" *ngIf="cell.isFiltering" class="filter-box" (input)="onFilterUpdate($event.target.value, cell)"/>
+          <i *ngIf="cell.sort == sortMode().asc" class="fa fa-caret-up" aria-hidden="true"></i>
+          <i *ngIf="cell.sort == sortMode().desc" class="fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+        <i *ngIf="cell.filterable && !cell.isFiltering" style="float:right" class="col-filter-btn fa fa-search" aria-hidden="true" (click)="onFilter(cell, $event.target)"></i>
+        <i *ngIf="cell.filterable && cell.isFiltering" style="float:right" class="col-filter-btn fa fa-times" aria-hidden="true" (click)="onFilter(cell)"></i>
       </div>
     </div>
 
@@ -42,6 +53,11 @@
             (click)="onItemClick($event, item)"
             [ngClass]="itemClass(item)">
         <div class="list-item-container" [ngStyle]="{background:highlight?highlight(item):'inherit'}">
+          
+          <div class="list-item-cell" style="width:24px" *ngIf="isSelectMode">
+            <input type="checkbox" [checked]="item.__checked" (change)="onItemCheck(item)"/>
+          </div>
+
           <div class="list-item-cell" *ngFor="let cell of schema" [ngStyle]="{flex:cell.size, textAlign:cell.type=='icon'?'center':'left'}" [ngSwitch]="cell.type">
             <ng-container *ngSwitchCase="'icon'">
               <i class="material-icons list-icon" *ngIf="!cell.fixed">{{getItemValue(item, cell.value, cell)}}</i>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { State, SortMode } from './list-utils'
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'list',
@@ -17,12 +18,16 @@ export class ListComponent implements OnInit
   @Input('header-on-empty') headerOnEmpty: boolean = false;
   @Input('max-height') maxHeight: string = "100%";
   @Input('min-width') minWidth: string = "200px";
+  @Input('select-mode') isSelectMode: boolean = false;
 
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output('items-checked') checkEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('on-sort') sortEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   private activeItem:any = null;
+
+  checkSortMode:SortMode;
 
   constructor() { }
 
@@ -52,6 +57,13 @@ export class ListComponent implements OnInit
   states()
   {
     return State;
+  }
+
+  ngOnChanges(changes: SimpleChanges)
+  {
+    if (changes.isSelectMode && changes.isSelectMode.currentValue === false)
+      for (let item of this.items)
+        delete item.__checked;
   }
 
   getItemValue(item: any, key:string, cell:any)
@@ -91,6 +103,23 @@ export class ListComponent implements OnInit
     this.sortEmitter.emit(item);
   }
 
+  onFilter(cell:any, button:any = null)
+  {
+    cell.isFiltering = !cell.isFiltering;
+    if (cell.isFiltering && button)
+    {
+      let div = button.parentElement;
+      setTimeout(()=>{
+        div.firstElementChild.getElementsByClassName("filter-box")[0].focus();
+      }, 50);
+    }
+  }
+
+  onFilterUpdate(term, cell)
+  {
+    debugger
+  }
+
   private getNextSortMode(current:SortMode)
   {
     return current == null?0:current == 2?0:current + 1;
@@ -113,5 +142,27 @@ export class ListComponent implements OnInit
       return "-";
     
     return cell.denomination?num / cell.denomination : num;
+  }
+
+  onItemCheck(item)
+  {
+    item.__checked = !item.__checked;
+    this.checkEmitter.emit(this.items.filter(item => item.__checked));
+  }
+
+  onSortBySelected()
+  {
+    this.checkSortMode = this.getNextSortMode(this.checkSortMode);
+
+    this.items.sort((left, right) => {
+      let lf = left.__checked == undefined?false:left.__checked;
+      let rf = right.__checked == undefined?false:right.__checked;
+
+      if (this.checkSortMode == SortMode.asc)
+        return lf < rf?-1:1;
+      if (this.checkSortMode == SortMode.desc)
+        return lf > rf?-1:1;
+      return 0;
+    });
   }
 }
