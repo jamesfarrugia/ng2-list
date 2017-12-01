@@ -24,6 +24,7 @@ export class ListComponent implements OnInit
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('items-checked') checkEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('on-sort') sortEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output('on-filter') filterEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   private activeItem:any = null;
 
@@ -117,7 +118,7 @@ export class ListComponent implements OnInit
 
   onFilterUpdate(term, cell)
   {
-    debugger
+    this.filterEmitter.emit({term,cell});
   }
 
   private getNextSortMode(current:SortMode)
