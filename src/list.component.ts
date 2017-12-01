@@ -114,6 +114,10 @@ export class ListComponent implements OnInit
         div.firstElementChild.getElementsByClassName("filter-box")[0].focus();
       }, 50);
     }
+    else if (!cell.isFiltering)
+    {
+      this.onFilterUpdate(null, cell);
+    }
   }
 
   onFilterUpdate(term, cell)
