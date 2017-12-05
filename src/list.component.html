@@ -71,6 +71,7 @@
             <span *ngSwitchCase="'spacer'"></span>
             <span *ngSwitchCase="'price'">€ {{isNum(item,cell)? (getNumberValue(item, cell, cell.denomination) | number:'1.2-2'): "-"}}</span>
             <span *ngSwitchCase="'date'">{{getItemValue(item, cell.value, cell) | date:cell.format?cell.format:'dd-MMM-yyyy HH:mm'}}</span>
+            <input class="text-input" *ngSwitchCase="'input'" [type]="cell.input.type" [(ngModel)]="item[cell.value]" (change)="onItemValueChange(item, cell)"/>
           </div>
         </div>
       </div>

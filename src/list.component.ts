@@ -25,6 +25,7 @@ export class ListComponent implements OnInit
   @Output('items-checked') checkEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('on-sort') sortEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('on-filter') filterEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output('on-item-value-change') itemValueEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   private activeItem:any = null;
 
@@ -172,5 +173,10 @@ export class ListComponent implements OnInit
         return lf > rf?-1:1;
       return 0;
     });
+  }
+
+  onItemValueChange(item, cell)
+  {
+    this.itemValueEmitter.emit({item, cell});
   }
 }

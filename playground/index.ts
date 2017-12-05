@@ -20,6 +20,7 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   [highlight]="rowHighlight"
   [select-mode]="selectMode"
   (items-checked)="onItemsChecked($event)"
+  (on-item-value-change)="onItemChange($event)"
   >
 </list>
 <hr/>
@@ -41,8 +42,9 @@ class AppComponent implements OnInit
     schema: [
       {type: 'text', value:'itemSku', name:'SKU', size: '10%', filterable:true},
       {type: 'text', value:'productName', name:'Name', size: '20%'},
-      {type: 'text', value:'itemDescription', name:'Description', size: '70%'},
-      {type: 'text', value:'quantity', name:'Quantity', size: '15%'}
+      {type: 'text', value:'itemDescription', name:'Description', size: '55%'},
+      {type: 'text', value:'quantity', name:'Quantity', size: '15%'},
+      {type: 'input', value:'quantity', name:'Quantity', size: '15%', input:{type:"number"}}
     ],
     state: State.List,
     error: null
@@ -77,6 +79,11 @@ class AppComponent implements OnInit
   onItemsChecked(items)
   {
     this.activeItems = items;
+  }
+
+  onItemChange(event)
+  {
+    console.log(event);
   }
 }
 
