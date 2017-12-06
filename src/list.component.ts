@@ -19,6 +19,7 @@ export class ListComponent implements OnInit
   @Input('max-height') maxHeight: string = "100%";
   @Input('min-width') minWidth: string = "200px";
   @Input('select-mode') isSelectMode: boolean = false;
+  @Input('with-header') withHeader: boolean = true;
 
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
