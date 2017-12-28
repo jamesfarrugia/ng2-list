@@ -145,6 +145,19 @@ export class ListComponent implements OnInit
     return typeof this.getItemValue(item, cell.value, cell) === 'number';
   }
 
+  getClass(item, cell)
+  {
+    let itemCellClass = "";
+    if (item.class)
+    {
+      let mapperCol = cell.valueClassId || cell.value;
+      if (typeof mapperCol == "string")
+        itemCellClass = item.class[mapperCol];
+    }
+
+    return (cell.class?cell.class:"") + " " + itemCellClass;
+  }
+
   getNumberValue(item, cell, divider)
   {
     let num = this.getItemValue(item, cell.value, cell);

@@ -31,10 +31,10 @@ class AppComponent implements OnInit
 {
   selectMode:boolean = true;
   items:any[] = [
-    {itemSku:"1", productName:"One", itemDescription:"Desc", quantity:13},
-    {itemSku:"PD4", productName:"Another", itemDescription:"Desc", quantity:23},
-    {itemSku:"WD3", productName:"Hello", itemDescription:"Desc", quantity:0.5},
-    {itemSku:"234", productName:"Test", itemDescription:"Desc", quantity:130},
+    {itemSku:"1", productName:"One", itemDescription:"Desc", quantity:13, price:200},
+    {itemSku:"PD4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250},
+    {itemSku:"WD3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50},
+    {itemSku:"234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000},
   ];
 
   lines: any = {
@@ -44,7 +44,9 @@ class AppComponent implements OnInit
       {type: 'text', value:'productName', name:'Name', size: '20%'},
       {type: 'text', value:'itemDescription', name:'Description', size: '55%'},
       {type: 'text', value:'quantity', name:'Quantity', size: '15%'},
-      {type: 'input', value:'quantity', name:'Quantity', size: '15%', input:{type:"number"}}
+      {type: 'input', value:'quantity', name:'Quantity', size: '15%', input:{type:"number"}},
+      {type: 'number', value:'price', name:'Price', size: '15%', denomination:100, format:'1.2-2', prefix:'EUR', class:'currency', valueClassId:'price'},
+      {type: 'number', value:(ln:any)=>{return ln.price;}, name:'Price', size: '15%', denomination:100, format:'1.2-2', prefix:'EUR', class:'currency', valueClassId:'price'}
     ],
     state: State.List,
     error: null
@@ -54,7 +56,11 @@ class AppComponent implements OnInit
 
   ngOnInit()
   {
-    this.lines.items = this.items;
+    this.lines.items = this.items.map(line => {
+      if (line.price < 0)
+        line.class = {price:"red"};
+      return line;
+    });
   }
 
   onSort(cell:any)
