@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef, TemplateRef } from '@angular/core';
 import { State, SortMode } from './list-utils'
 import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
@@ -20,6 +20,7 @@ export class ListComponent implements OnInit
   @Input('min-width') minWidth: string = "200px";
   @Input('select-mode') isSelectMode: boolean = false;
   @Input('with-header') withHeader: boolean = true;
+  @Input('context-items') contextItems: any[] = null;
 
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
@@ -28,13 +29,22 @@ export class ListComponent implements OnInit
   @Output('on-filter') filterEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('on-item-value-change') itemValueEmitter: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild('contextMenu') contextMenuElem : ElementRef;
+  @ViewChild('list') listElem : ElementRef;
+
   private activeItem:any = null;
 
   checkSortMode:SortMode;
+  menu:any = {active:false}
 
-  constructor() { }
+  constructor(public elem: ElementRef) { }
 
-  ngOnInit() {}
+  ngOnInit() 
+  {
+    this.elem.nativeElement.onclick = (event)=>{
+      this.menu.active = false;
+    };
+  }
 
   itemClass(item:any): string
   {
@@ -192,5 +202,40 @@ export class ListComponent implements OnInit
   onItemValueChange(item, cell)
   {
     this.itemValueEmitter.emit({item, cell});
+  }
+
+  onRightClick(event, item)
+  {
+    this.setActiveItem(item);
+
+    if (!this.contextItems || this.contextItems.length == 0)
+      return true;
+      
+    if (this.menu.active && event.pageX === this.menu.x && event.pageY === this.menu.y)
+      this.menu.active = false;
+    else
+      this.menu = {x:event.pageX, y:event.pageY, active:true};
+    
+    this.menu.listItem = item;
+
+    setTimeout(()=>{
+      let ctxH = this.contextMenuElem.nativeElement.clientHeight;
+      let listH = this.listElem.nativeElement.clientHeight;
+      if (this.menu.y + ctxH > listH)
+        this.menu.y -= ctxH;
+
+      let ctxW = this.contextMenuElem.nativeElement.clientWidth;
+      let listW = this.listElem.nativeElement.clientWidth;
+      if (this.menu.x + ctxW > listW)
+          this.menu.x -= ctxW;
+    }, 10);
+
+    return false;
+  }
+
+  onContextAction(contextItem)
+  {
+    if (contextItem.action)
+      contextItem.action(this.menu.listItem);
   }
 }

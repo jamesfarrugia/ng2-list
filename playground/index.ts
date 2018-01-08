@@ -21,6 +21,7 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   [select-mode]="selectMode"
   (items-checked)="onItemsChecked($event)"
   (on-item-value-change)="onItemChange($event)"
+  [context-items]="[{name:'Click', action:ctxClick},{separator:true},{name:'Bottom', action:ctxBottom}]"
   >
 </list>
 <hr/>
@@ -90,6 +91,18 @@ class AppComponent implements OnInit
   onItemChange(event)
   {
     console.log(event);
+  }
+
+  ctxClick(item)
+  {
+    console.log("CLICK")
+    console.log(item)
+  }
+
+  ctxBottom(item)
+  {
+    console.log("BOTTOM")
+    console.log(item)
   }
 }
 
