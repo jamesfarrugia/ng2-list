@@ -5,13 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
 
 @Component({
   selector: 'app',
   template: `<list 
-  [items]="lines.items" 
+  [items]="t" 
   [schema]="lines.schema" 
   [state]="lines.state"
   [error]="lines.error"
@@ -21,6 +21,7 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   [select-mode]="selectMode"
   (items-checked)="onItemsChecked($event)"
   (on-item-value-change)="onItemChange($event)"
+  max-height="400px"
   [context-items]="[{name:'Click', action:ctxClick},{separator:true},{name:'Bottom', action:ctxBottom}]"
   >
 </list>
@@ -37,6 +38,8 @@ class AppComponent implements OnInit
     {itemSku:"WD3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50},
     {itemSku:"234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000},
   ];
+
+  t:any[]=[];
 
   lines: any = {
     items: [],
@@ -62,11 +65,24 @@ class AppComponent implements OnInit
         line.class = {price:"red"};
       return line;
     });
+
+    //this.lines.items = this.lines.items.concat(this.lines.items);
+    this.lines.items = this.lines.items.concat(this.lines.items);
+    this.lines.items = this.lines.items.concat(this.lines.items);
+    this.lines.items = this.lines.items.concat(this.lines.items);
+    this.lines.items = this.lines.items.concat(this.lines.items);
+    this.lines.items = this.lines.items.concat(this.lines.items);
+    this.lines.items = this.lines.items.concat(this.lines.items);
+    this.t = this.lines.items;
+    console.log(this.lines.items.length + " items")
   }
 
   onSort(cell:any)
   {
-    this.items.sort((left, right) => {
+    console.log("sort on " + cell.name + " " + cell.sort);
+    console.log(this.lines.items.map((t:any) => t.itemSku).join());
+    this.lines.items = [];
+    this.lines.items = this.items.sort((left, right) => {
       let lf = left[cell.value];
       let rf = right[cell.value];
 
@@ -76,6 +92,10 @@ class AppComponent implements OnInit
         return lf > rf?-1:1;
       return 0;
     });
+    let r = new Array();
+    r = r.concat(this.lines.items)
+    this.t = r;
+    console.log(this.lines.items.map((t:any) => t.itemSku).join());
   }
 
   rowHighlight(item)
@@ -109,7 +129,7 @@ class AppComponent implements OnInit
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [ AppComponent ],
-  imports: [ BrowserModule, JfNg2ListModule ]
+  imports: [ BrowserModule,VirtualScrollModule, JfNg2ListModule ]
 })
 class AppModule {}
 

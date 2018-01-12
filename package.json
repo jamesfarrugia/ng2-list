@@ -1,6 +1,6 @@
 {
   "name": "jf-ng2-list",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -22,7 +22,7 @@
     "name": "James Farrugia",
     "email": "info@jamesfarrugia.com"
   },
-  "keywords": [ 
+  "keywords": [
     "angular"
   ],
   "license": "MIT",
@@ -68,7 +68,11 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.3.4",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "angular2-virtual-scroll": "0.3.1"
+  },
+  "dependencies": {
+    "angular2-virtual-scroll": "0.3.1"
   },
   "engines": {
     "node": ">=6.0.0"

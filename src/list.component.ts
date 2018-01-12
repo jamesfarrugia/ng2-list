@@ -1,13 +1,18 @@
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef, TemplateRef } from '@angular/core';
 import { State, SortMode } from './list-utils'
-import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { SimpleChanges, OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Observable } from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/range';
+import 'rxjs/add/operator/reduce';
 
 @Component({
   selector: 'list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit 
+export class ListComponent implements OnInit, OnChanges
 {
   @Input('items') items: any[] = [];
   @Input('schema') schema: any = {};

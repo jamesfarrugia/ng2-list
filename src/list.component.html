@@ -46,36 +46,38 @@
       There doesn't seem to be anything here.
     </div>
   
-    <div class="list-items" [style.max-height]="maxHeight">
-      <div class="list-item no-select"
-            *ngFor="let item of items"
+    <div class="list-items" ><!--[style.max-height]="maxHeight"-->
+      <virtual-scroll [items]="items" [style.maxHeight]="maxHeight" (update)="viewPortItems = $event">
+        <div class="list-item no-select"
+            *ngFor="let item of viewPortItems"
             (dblclick)="onItemDblClick($event, item)"
             (click)="onItemClick($event, item)"
             [ngClass]="itemClass(item)">
-        <div class="list-item-container" [ngStyle]="{background:highlight?highlight(item):'inherit'}" [ngClass]="item.__checked?'selected-row':''" (contextmenu)="onRightClick($event, item)">
-          
-          <div class="list-item-cell" style="width:24px" *ngIf="isSelectMode">
-            <input type="checkbox" [checked]="item.__checked" (change)="onItemCheck(item)"/>
-          </div>
+          <div class="list-item-container" [ngStyle]="{background:highlight?highlight(item):'inherit'}" [ngClass]="item.__checked?'selected-row':''" (contextmenu)="onRightClick($event, item)">
+            
+            <div class="list-item-cell" style="width:24px" *ngIf="isSelectMode">
+              <input type="checkbox" [checked]="item.__checked" (change)="onItemCheck(item)"/>
+            </div>
 
-          <div class="list-item-cell" *ngFor="let cell of schema" [ngStyle]="{flex:cell.size, textAlign:cell.type=='icon'?'center':'left'}" [ngSwitch]="cell.type" [ngClass]="getClass(item,cell)">
-            <ng-container *ngSwitchCase="'icon'">
-              <i class="material-icons list-icon" *ngIf="!cell.fixed">{{getItemValue(item, cell.value, cell)}}</i>
-              <i class="material-icons list-icon" *ngIf="cell.fixed">{{getItemValue(item, cell.value, cell)}}</i>
-            </ng-container>
-            <span *ngSwitchCase="'text'" [title]="getItemValue(item, cell.value, cell)">{{getItemValue(item, cell.value, cell)}}</span>
-            <ng-container *ngSwitchCase="'boolean'">
-              <i class="fa fa-check" *ngIf="getItemValue(item, cell.value, cell)"></i>
-            </ng-container>
-            <span *ngSwitchCase="'mapped'" [title]="cell.map[getItemValue(item, cell.value, cell)]">{{cell.map[getItemValue(item, cell.value, cell)]}}</span>
-            <span *ngSwitchCase="'spacer'"></span>
-            <span *ngSwitchCase="'price'">€ {{isNum(item,cell)? (getNumberValue(item, cell, cell.denomination) | number:'1.2-2'): "-"}}</span>
-            <span *ngSwitchCase="'number'">{{cell.prefix}} {{isNum(item,cell)? (getNumberValue(item, cell, cell.denomination) | number:cell.format): "-"}} {{cell.suffix}}</span>
-            <span *ngSwitchCase="'date'">{{getItemValue(item, cell.value, cell) | date:cell.format?cell.format:'dd-MMM-yyyy HH:mm'}}</span>
-            <input class="text-input" *ngSwitchCase="'input'" [type]="cell.input.type" [(ngModel)]="item[cell.value]" (change)="onItemValueChange(item, cell)"/>
+            <div class="list-item-cell" *ngFor="let cell of schema" [ngStyle]="{flex:cell.size, textAlign:cell.type=='icon'?'center':'left'}" [ngSwitch]="cell.type" [ngClass]="getClass(item,cell)">
+              <ng-container *ngSwitchCase="'icon'">
+                <i class="material-icons list-icon" *ngIf="!cell.fixed">{{getItemValue(item, cell.value, cell)}}</i>
+                <i class="material-icons list-icon" *ngIf="cell.fixed">{{getItemValue(item, cell.value, cell)}}</i>
+              </ng-container>
+              <span *ngSwitchCase="'text'" [title]="getItemValue(item, cell.value, cell)">{{getItemValue(item, cell.value, cell)}}</span>
+              <ng-container *ngSwitchCase="'boolean'">
+                <i class="fa fa-check" *ngIf="getItemValue(item, cell.value, cell)"></i>
+              </ng-container>
+              <span *ngSwitchCase="'mapped'" [title]="cell.map[getItemValue(item, cell.value, cell)]">{{cell.map[getItemValue(item, cell.value, cell)]}}</span>
+              <span *ngSwitchCase="'spacer'"></span>
+              <span *ngSwitchCase="'price'">€ {{isNum(item,cell)? (getNumberValue(item, cell, cell.denomination) | number:'1.2-2'): "-"}}</span>
+              <span *ngSwitchCase="'number'">{{cell.prefix}} {{isNum(item,cell)? (getNumberValue(item, cell, cell.denomination) | number:cell.format): "-"}} {{cell.suffix}}</span>
+              <span *ngSwitchCase="'date'">{{getItemValue(item, cell.value, cell) | date:cell.format?cell.format:'dd-MMM-yyyy HH:mm'}}</span>
+              <input class="text-input" *ngSwitchCase="'input'" [type]="cell.input.type" [(ngModel)]="item[cell.value]" (change)="onItemValueChange(item, cell)"/>
+            </div>
           </div>
-        </div>
       </div>
+      </virtual-scroll>
     </div>
   </div>
 </div>
@@ -86,3 +88,4 @@
     </li>
   </ul>
 </div>
+
