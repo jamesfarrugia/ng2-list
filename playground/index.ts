@@ -21,7 +21,9 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   [select-mode]="selectMode"
   (items-checked)="onItemsChecked($event)"
   (on-item-value-change)="onItemChange($event)"
-  max-height="400px"
+  max-height="200px"
+  (item-dbl-click)="onOpen($event)"
+  [receive-keys]="true"
   [context-items]="[{name:'Click', action:ctxClick},{separator:true},{name:'Bottom', action:ctxBottom}]"
   >
 </list>
@@ -37,6 +39,10 @@ class AppComponent implements OnInit
     {itemSku:"PD4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250},
     {itemSku:"WD3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50},
     {itemSku:"234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000},
+    {itemSku:"4", productName:"two", itemDescription:"Desc", quantity:13, price:400},
+    {itemSku:"P5D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240},
+    {itemSku:"W73", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54},
+    {itemSku:"232z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000},
   ];
 
   t:any[]=[];
@@ -67,14 +73,13 @@ class AppComponent implements OnInit
     });
 
     //this.lines.items = this.lines.items.concat(this.lines.items);
-    this.lines.items = this.lines.items.concat(this.lines.items);
-    this.lines.items = this.lines.items.concat(this.lines.items);
-    this.lines.items = this.lines.items.concat(this.lines.items);
-    this.lines.items = this.lines.items.concat(this.lines.items);
-    this.lines.items = this.lines.items.concat(this.lines.items);
-    this.lines.items = this.lines.items.concat(this.lines.items);
     this.t = this.lines.items;
     console.log(this.lines.items.length + " items")
+  }
+
+  onOpen(event:any)
+  {
+    console.log('open' + event.item.itemSku)
   }
 
   onSort(cell:any)

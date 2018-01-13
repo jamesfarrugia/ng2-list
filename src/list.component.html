@@ -47,7 +47,7 @@
     </div>
   
     <div class="list-items" ><!--[style.max-height]="maxHeight"-->
-      <virtual-scroll [items]="items" [style.maxHeight]="maxHeight" (update)="viewPortItems = $event">
+      <virtual-scroll [items]="items" [style.height]="maxHeight" (update)="viewPortItems = $event" [scrollAnimationTime]="125">
         <div class="list-item no-select"
             *ngFor="let item of viewPortItems"
             (dblclick)="onItemDblClick($event, item)"

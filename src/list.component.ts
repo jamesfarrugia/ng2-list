@@ -2,10 +2,7 @@ import { Component, OnInit, Input, Output, ViewChild, EventEmitter, ElementRef, 
 import { State, SortMode } from './list-utils'
 import { SimpleChanges, OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/range';
-import 'rxjs/add/operator/reduce';
+import { VirtualScrollComponent } from 'angular2-virtual-scroll';
 
 @Component({
   selector: 'list',
@@ -26,6 +23,8 @@ export class ListComponent implements OnInit, OnChanges
   @Input('select-mode') isSelectMode: boolean = false;
   @Input('with-header') withHeader: boolean = true;
   @Input('context-items') contextItems: any[] = null;
+  @Input('receive-keys') receiveKeys: boolean = true;
+  @Input('focused') focused: boolean = true;
 
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
@@ -36,11 +35,15 @@ export class ListComponent implements OnInit, OnChanges
 
   @ViewChild('contextMenu') contextMenuElem : ElementRef;
   @ViewChild('list') listElem : ElementRef;
+  @ViewChild(VirtualScrollComponent)
+  private virtualScroll: VirtualScrollComponent;
 
   private activeItem:any = null;
 
   checkSortMode:SortMode;
   menu:any = {active:false}
+
+  private ke:any = {up:-1,down:1,enter:0, space:4};
 
   constructor(public elem: ElementRef) { }
 
@@ -49,6 +52,24 @@ export class ListComponent implements OnInit, OnChanges
     this.elem.nativeElement.onclick = (event)=>{
       this.menu.active = false;
     };
+
+    if (this.receiveKeys)
+    {
+      document.addEventListener('keyup', (event:KeyboardEvent) => 
+      {
+        if (!this.focused)
+          return;
+
+        if (event.keyCode == 38 || event.keyCode == 75)
+          this.onKeyEvent(event, this.ke.up);
+        if (event.keyCode == 40 || event.keyCode == 74)
+          this.onKeyEvent(event, this.ke.down);
+        if (event.keyCode == 13)
+          this.onKeyEvent(event, this.ke.enter);
+        if (event.keyCode == 32)
+          this.onKeyEvent(event, this.ke.space);
+     });
+    }
   }
 
   itemClass(item:any): string
@@ -80,8 +101,53 @@ export class ListComponent implements OnInit, OnChanges
     return State;
   }
 
+  onKeyEvent(event:any, code:number)
+  {
+    if (code == this.ke.enter)
+    {
+      if (this.activeItem)
+        this.onItemDblClick(event, this.activeItem);
+      return;
+    }
+    else if (code == this.ke.space)
+    {
+      if (this.activeItem)
+        this.onItemClick(event, this.activeItem);
+      return;
+    }
+
+    if (this.activeItem)
+    {
+      let next = this.getIndexedItem(this.activeItem.__i + code);
+      if (next)
+      {
+        this.activeItem = next;
+        this.virtualScroll.scrollInto(this.activeItem);
+      }
+    }
+    else
+    {
+      this.activeItem = this.items[0];
+    }
+  }
+
+  private getIndexedItem(index:number):any
+  {
+    for (let i = 0; i < this.items.length; i++)
+      if (this.items[i].__i == index)
+        return this.items[i];
+
+    return null;
+  }
+
   ngOnChanges(changes: SimpleChanges)
   {
+    if (!this.items || this.items.length == 0 && this.maxHeight)
+      this.maxHeight = (parseInt(this.maxHeight.replace("px","")) - 50) + "px";
+    
+    let x = 0;
+    this.items = this.items.map(i => {i.__i = x++; return i;});
+
     if (changes.isSelectMode && changes.isSelectMode.currentValue === false)
       for (let item of this.items)
         delete item.__checked;
