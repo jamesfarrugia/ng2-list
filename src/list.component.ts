@@ -39,9 +39,11 @@ export class ListComponent implements OnInit, OnChanges
   private virtualScroll: VirtualScrollComponent;
 
   private activeItem:any = null;
-
+  activeHeight: string = this.maxHeight;
+  viewPortItems:any[];
   checkSortMode:SortMode;
   menu:any = {active:false}
+
 
   private ke:any = {up:-1,down:1,enter:0, space:4};
 
@@ -55,8 +57,10 @@ export class ListComponent implements OnInit, OnChanges
 
     if (this.receiveKeys)
     {
-      document.addEventListener('keyup', (event:KeyboardEvent) => 
+      console.log("listening for keys")
+      document.addEventListener('keydown', (event:KeyboardEvent) => 
       {
+        console.trace("event, proceed:" + this.focused)
         if (!this.focused)
           return;
 
@@ -122,7 +126,8 @@ export class ListComponent implements OnInit, OnChanges
       if (next)
       {
         this.activeItem = next;
-        this.virtualScroll.scrollInto(this.activeItem);
+        if (this.viewPortItems.indexOf(next) == -1)
+          this.virtualScroll.scrollInto(this.activeItem);
       }
     }
     else
@@ -143,7 +148,9 @@ export class ListComponent implements OnInit, OnChanges
   ngOnChanges(changes: SimpleChanges)
   {
     if (!this.items || this.items.length == 0 && this.maxHeight)
-      this.maxHeight = (parseInt(this.maxHeight.replace("px","")) - 50) + "px";
+      this.activeHeight = (parseInt(this.maxHeight.replace("px","")) - 16) + "px";
+    else
+      this.activeHeight = this.maxHeight;
     
     let x = 0;
     this.items = this.items.map(i => {i.__i = x++; return i;});

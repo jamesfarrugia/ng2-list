@@ -43,6 +43,14 @@ class AppComponent implements OnInit
     {itemSku:"P5D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240},
     {itemSku:"W73", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54},
     {itemSku:"232z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000},
+    {itemSku:"2", productName:"One", itemDescription:"Desc", quantity:13, price:200},
+    {itemSku:"P2D4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250},
+    {itemSku:"W2D3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50},
+    {itemSku:"2234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000},
+    {itemSku:"42", productName:"two", itemDescription:"Desc", quantity:13, price:400},
+    {itemSku:"P52D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240},
+    {itemSku:"W723", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54},
+    {itemSku:"2322z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000},
   ];
 
   t:any[]=[];
