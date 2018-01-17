@@ -26,6 +26,7 @@ export class ListComponent implements OnInit, OnChanges
   @Input('receive-keys') receiveKeys: boolean = true;
   @Input('focused') focused: boolean = true;
 
+  @Output('active-item-change') activeEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-click') clickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('item-dbl-click') dblClickEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output('items-checked') checkEmitter: EventEmitter<any> = new EventEmitter<any>();
@@ -134,6 +135,8 @@ export class ListComponent implements OnInit, OnChanges
     {
       this.activeItem = this.items[0];
     }
+
+    this.activeEmitter.emit({item:this.activeItem});
   }
 
   private getIndexedItem(index:number):any
