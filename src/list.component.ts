@@ -322,11 +322,13 @@ export class ListComponent implements OnInit, OnChanges
 
   scrollToBottom()
   {
-    this.virtualScroll.scrollInto(this.items[this.items.length - 1]);
+    if (this.virtualScroll && this.items)
+      this.virtualScroll.scrollInto(this.items[this.items.length - 1]);
   }
 
   scrollToTop()
   {
-    this.virtualScroll.scrollInto(this.items[0]);
+    if (this.virtualScroll && this.items)
+      this.virtualScroll.scrollInto(this.items[0]);
   }
 }
