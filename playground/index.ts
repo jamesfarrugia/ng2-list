@@ -3,10 +3,10 @@
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
-import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
+import { JfNg2ListModule, ListComponent, State, SortMode }  from 'jf-ng2-list';
 
 @Component({
   selector: 'app',
@@ -25,10 +25,12 @@ import { JfNg2ListModule, State, SortMode }  from 'jf-ng2-list';
   (item-dbl-click)="onOpen($event)"
   [receive-keys]="true"
   [context-items]="[{name:'Click', action:ctxClick},{separator:true},{name:'Bottom', action:ctxBottom}]"
-  >
+  #list>
 </list>
 <hr/>
-<input type="checkbox" [checked]="selectMode" (change)="selectMode = !selectMode"/>
+<label><input type="checkbox" [checked]="selectMode" (change)="selectMode = !selectMode"/> multi select</label>
+<button (click)="btm()">bottom</button>
+<button (click)="top()">top</button>
 {{activeItems|json}}`
 })
 class AppComponent implements OnInit
@@ -69,6 +71,8 @@ class AppComponent implements OnInit
     state: State.List,
     error: null
   }
+
+  @ViewChild('list') list:ListComponent;
 
   activeItems:any[];
 
@@ -136,6 +140,16 @@ class AppComponent implements OnInit
   {
     console.log("BOTTOM")
     console.log(item)
+  }
+
+  btm()
+  {
+    this.list.scrollToBottom();
+  }
+
+  top()
+  {
+    this.list.scrollToTop();
   }
 }
 

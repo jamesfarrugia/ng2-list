@@ -319,4 +319,14 @@ export class ListComponent implements OnInit, OnChanges
     if (contextItem.action)
       contextItem.action(this.menu.listItem);
   }
+
+  scrollToBottom()
+  {
+    this.virtualScroll.scrollInto(this.items[this.items.length - 1]);
+  }
+
+  scrollToTop()
+  {
+    this.virtualScroll.scrollInto(this.items[0]);
+  }
 }
