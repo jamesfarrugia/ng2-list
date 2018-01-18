@@ -58,10 +58,10 @@ export class ListComponent implements OnInit, OnChanges
 
     if (this.receiveKeys)
     {
-      console.log("listening for keys")
+      console.log("TBL: listening for keys")
       document.addEventListener('keydown', (event:KeyboardEvent) => 
       {
-        console.trace("event, proceed:" + this.focused)
+        console.log("TBL: event, proceed:" + this.focused)
         if (!this.focused)
           return;
 
