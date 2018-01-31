@@ -1,6 +1,6 @@
 {
   "name": "jf-ng2-list",
-  "version": "0.1.32",
+  "version": "0.1.33",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -69,10 +69,14 @@
     "tslint": "~4.5.0",
     "typescript": "~2.3.4",
     "zone.js": "^0.8.4",
-    "angular2-virtual-scroll": "0.3.1"
+    "angular2-virtual-scroll": "0.3.1",
+    "moment": "^2.19.1",
+    "moment-timezone": "^0.5.13"
   },
   "dependencies": {
-    "angular2-virtual-scroll": "0.3.1"
+    "angular2-virtual-scroll": "0.3.1",
+    "moment": "^2.19.1",
+    "moment-timezone": "^0.5.13"
   },
   "engines": {
     "node": ">=6.0.0"

@@ -4,6 +4,8 @@ import { SimpleChanges, OnChanges } from '@angular/core/src/metadata/lifecycle_h
 import { Observable } from 'rxjs/Observable';
 import { VirtualScrollComponent } from 'angular2-virtual-scroll';
 
+declare var moment: any;
+
 @Component({
   selector: 'list',
   templateUrl: './list.component.html',
@@ -330,5 +332,10 @@ export class ListComponent implements OnInit, OnChanges
   {
     if (this.virtualScroll && this.items)
       this.virtualScroll.scrollInto(this.items[0]);
+  }
+
+  asDate(date, format)
+  {
+    return moment(date).format(format);
   }
 }

@@ -37,22 +37,22 @@ class AppComponent implements OnInit
 {
   selectMode:boolean = true;
   items:any[] = [
-    {itemSku:"1", productName:"One", itemDescription:"Desc", quantity:13, price:200},
-    {itemSku:"PD4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250},
-    {itemSku:"WD3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50},
-    {itemSku:"234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000},
-    {itemSku:"4", productName:"two", itemDescription:"Desc", quantity:13, price:400},
-    {itemSku:"P5D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240},
-    {itemSku:"W73", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54},
-    {itemSku:"232z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000},
-    {itemSku:"2", productName:"One", itemDescription:"Desc", quantity:13, price:200},
-    {itemSku:"P2D4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250},
-    {itemSku:"W2D3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50},
-    {itemSku:"2234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000},
-    {itemSku:"42", productName:"two", itemDescription:"Desc", quantity:13, price:400},
-    {itemSku:"P52D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240},
-    {itemSku:"W723", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54},
-    {itemSku:"2322z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000},
+    {itemSku:"1", productName:"One", itemDescription:"Desc", quantity:13, price:200, date:new Date()},
+    {itemSku:"PD4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250, date:new Date()},
+    {itemSku:"WD3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50, date:new Date()},
+    {itemSku:"234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000, date:new Date()},
+    {itemSku:"4", productName:"two", itemDescription:"Desc", quantity:13, price:400, date:new Date()},
+    {itemSku:"P5D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240, date:new Date()},
+    {itemSku:"W73", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54, date:new Date()},
+    {itemSku:"232z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000, date:new Date()},
+    {itemSku:"2", productName:"One", itemDescription:"Desc", quantity:13, price:200, date:new Date()},
+    {itemSku:"P2D4", productName:"Another", itemDescription:"Desc", quantity:23, price:-250, date:new Date()},
+    {itemSku:"W2D3", productName:"Hello", itemDescription:"Desc", quantity:0.5, price:50, date:new Date()},
+    {itemSku:"2234", productName:"Test", itemDescription:"Desc", quantity:130, price:200000, date:new Date()},
+    {itemSku:"42", productName:"two", itemDescription:"Desc", quantity:13, price:400, date:new Date()},
+    {itemSku:"P52D4", productName:"Anothedr", itemDescription:"Desc", quantity:23, price:-240, date:new Date()},
+    {itemSku:"W723", productName:"Helloxx", itemDescription:"Desc", quantity:0.5, price:54, date:new Date()},
+    {itemSku:"2322z", productName:"Testss", itemDescription:"Desc", quantity:130, price:204000, date:new Date()},
   ];
 
   t:any[]=[];
@@ -64,6 +64,7 @@ class AppComponent implements OnInit
       {type: 'text', value:'productName', name:'Name', size: '20%'},
       {type: 'text', value:'itemDescription', name:'Description', size: '55%'},
       {type: 'text', value:'quantity', name:'Quantity', size: '15%'},
+      {type: 'date', value:'date', name:'Date', size: '15%', format:'DD/MM/YYY'},
       {type: 'input', value:'quantity', name:'Quantity', size: '15%', input:{type:"number"}},
       {type: 'number', value:'price', name:'Price', size: '15%', denomination:100, format:'1.2-2', prefix:'EUR', class:'currency', valueClassId:'price'},
       {type: 'number', value:(ln:any)=>{return ln.price;}, name:'Price', size: '15%', denomination:100, format:'1.2-2', prefix:'EUR', class:'currency', valueClassId:'price'}
